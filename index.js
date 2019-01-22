@@ -7,8 +7,8 @@ const url = require('url');
 const app = Express();
 const httpServer = http.createServer(app);
 httpServer.listen(
-  process.argv[2] || 4930,
-  process.argv[3] || 'localhost',
+  process.argv[2] || process.env.PORT || 4930,
+  process.argv[3] || '0.0.0.0',
   () => console.log(`Listening on ${httpServer.address().address}:${httpServer.address().port}`),
 );
 const wss = new WebSocket.Server({ server: httpServer, clientTracking: true });
