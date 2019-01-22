@@ -152,3 +152,18 @@ setInterval(() => {
     socket.ping(() => {});
   });
 }, 30000);
+
+// Function to automatically kill the gab-server after 10 minutes.
+// This function is used in conjunction with pm2 to automatically
+// restart the server when the 10 minute timer is reached OR when
+// an error occurs.
+//
+// The goal of this function is to clean the testing environment
+// and re-initiate a clean instance of the gab-server when deployed
+// on a testing server
+setTimeout(() => {
+  // Check if the TESTING env variable is set.
+  // If gab-server is running in an env where
+  // TESTING is not set, the server will not exit.
+  if (process.env.TESTING) process.exit(0);
+}, 1000 * 60 * 10);
