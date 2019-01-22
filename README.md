@@ -16,7 +16,7 @@ Therefore, when establishing a websocket connection from the client application,
 ## Key Changes to GAB Server
 - **When the application is run in a testing environment (where the TESTING environment variable is set), the server will automatically exit after 10 minutes**. This change was implemented so that, when the server is run with [pm2](https://www.npmjs.com/package/pm2), the server will automatically be restarted. This is valuable in a testing environment because it provides a clean testing environment every 10 minutes. Additionally, `pm2` should automatically restart the server in the event of a crash thereby minimizing downtime.
 
-- **The server now listens on all interfaces by default and attempts to read the port environment variable before defaulting to 4930**. This change is necessary because Heroku does not honor ports `EXPOSED` by the `Dockerfile`. Heroku instead sets a random `PORT` environment variable which is the ONLY port that can be bound to.
+- **The server checks for BIND_ADDRESS and PORT environment variables when creating the webserver before using the original default bind address and port values**. This change is necessary because Heroku does not honor ports `EXPOSED` by the `Dockerfile`. Heroku instead sets a random `PORT` environment variable which is the ONLY port that can be bound to.
 
 ## Heroku Deployment Details
 As per the build instructions identified in `heroku.yml`, Heroku builds the gab-server Docker image based on the instructions found in the `Dockerfile` before deploying the application.

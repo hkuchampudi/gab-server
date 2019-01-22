@@ -14,6 +14,7 @@ COPY . .
 
 # Set Environment variables
 ENV TESTING="true"
+ENV BIND_ADDRESS="0.0.0.0"
 
 # NPM install PM2 dependnecy as well as
 # dependencies for the applicaiton
