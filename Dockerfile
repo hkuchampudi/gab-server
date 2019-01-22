@@ -14,7 +14,8 @@ COPY . .
 
 # NPM install PM2 dependnecy as well as
 # dependencies for the applicaiton
-RUN npm install -g pm2 && \
+RUN npm config set unsafe-perm true && \
+    npm install -g pm2 && \
     npm install
 
 CMD ["pm2", "start", "index.js", "--", "$PORT", "0.0.0.0"]
