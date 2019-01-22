@@ -1,27 +1,31 @@
-# Project Title
+# Gift of Asynchronous Babble (GAB) Server
 
-GAB (Gift of Asynchronous Babble) Server
+## Introduction
+This repository is a "fork" of the original GAB server code designed by William Oropallo at the University of South Florida. This repository makes minimal changes to the original server code so that it can be deployed in a testing environment on [Heroku](https://gab-server.herokuapp.com/).
 
-## Getting Started
+The original README bundled with the application was renamed to `README_original.md`.
 
-Everything that is needed to run the server (aside from the dependencies)
+## Connecting to the GAB Server
+- **hostname**: gab-server.herokuapp.com
+- **port**: 80
 
-## Installing and Use
+Therefore, when establishing a websocket connection from the client application, the WebSocket connection URL should look as follows:
 
-`npm install`
-`node .`
+`ws://gab-server.herokuapp.com:80/?username=<USERNAME>`
 
-To use specific host/port number 
-`node . \[port\] \[host\]`
+## Key Changes to GAB Server
+- **When the application is run in a testing environment (where the TESTING environment variable is set), the server will automatically exit after 10 minutes**. This change was implemented so that, when the server is run with [pm2](https://www.npmjs.com/package/pm2), the server will automatically be restarted. This is valuable in a testing environment because it provides a clean testing environment every 10 minutes. Additionally, `pm2` should automatically restart the server in the event of a crash thereby minimizing downtime.
 
-Example of a server running on port 4931 and address 10.226.9.220
-`node . 4931 10.226.9.220`
+- **The server now listens on all interfaces by default and attempts to read the port environment variable before defaulting to 4930**. This change is necessary because Heroku does not honor ports `EXPOSED` by the `Dockerfile`. Heroku instead sets a random `PORT` environment variable which is the ONLY port that can be bound to.
 
-## Built With
+## Heroku Deployment Details
+As per the build instructions identified in `heroku.yml`, Heroku builds the gab-server Docker image based on the instructions found in the `Dockerfile` before deploying the application.
 
-* [ws](https://github.com/websockets/ws) - Simple to use, blazing fast and thoroughly tested WebSocket client and server for Node.js
-* [Express](https://github.com/expressjs/express) - Fast, unopinionated, minimalist web framework for node.
+## Additional Notes/Quirks
+- **Problem**: Since a free Heroku instance was used to host this application, Heroku 'dynos' will idle after a long period of inactivity (no visitors); this means that you might not be able to connect to the server. 
+- **Solution**: If this is the case, just open a web-browser and visit the site [https://gab-server.herokuapp.com/](https://gab-server.herokuapp.com/), and wait till you see the message: `Cannot GET /`. At this point, the application is now un-idled and your client should be able to connect normally.
 
-## Versioning
+## Resources
+[Heroku - Docker Deployments and Runtime](https://devcenter.heroku.com/articles/container-registry-and-runtime)
 
-The version of this server provided is purely for test purposes. The instructor reserves the right to make small updates to this server for bugfixes. 
+[Heroku - heroku.yaml Documentation](https://devcenter.heroku.com/articles/build-docker-images-heroku-yml)
