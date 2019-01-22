@@ -12,10 +12,13 @@ LABEL GITHUB="https://github.com/hkuchampudi/gab-server"
 WORKDIR /app
 COPY . .
 
+# Set Environment variables
+ENV TESTING="true"
+
 # NPM install PM2 dependnecy as well as
 # dependencies for the applicaiton
 RUN npm config set unsafe-perm true && \
     npm install -g pm2 && \
     npm install
 
-CMD ["pm2-runtime", "start", "index.js", "--", "$PORT", "0.0.0.0"]
+CMD ["pm2-runtime", "start", "index.js"]
