@@ -18,4 +18,4 @@ RUN npm config set unsafe-perm true && \
     npm install -g pm2 && \
     npm install
 
-CMD ["pm2", "start", "index.js", "--", "$PORT", "0.0.0.0"]
+CMD ["pm2-runtime", "start", "index.js", "--", "$PORT", "0.0.0.0"]
