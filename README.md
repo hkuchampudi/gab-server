@@ -1,5 +1,7 @@
 # Gift of Asynchronous Babble (GAB) Server
 
+[![asciicast](https://asciinema.org/a/222966.svg)](https://asciinema.org/a/222966)
+
 ## Introduction
 This repository is a "fork" of the original GAB server code designed by William Oropallo at the University of South Florida for CIS 4930: Advanced Javascript. This repository makes minimal changes to the original server code so that it can be deployed in a testing environment on [Heroku](https://gab-server.herokuapp.com/).
 
